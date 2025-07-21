@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snactive Chip Tapper Mini-Game</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e; /* Dark background */
+            color: #e0e0e0; /* Light text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .game-container {
+            background-color: rgba(40, 40, 60, 0.7); /* Semi-transparent dark background */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari support */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle lighter border */
+            border-radius: 1.5rem; /* Rounded corners */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            max-width: 900px; /* Adjusted max-width for simpler layout */
+            width: 100%;
+            display: flex; /* Use flex for main layout */
+            flex-direction: column; /* Stack vertically */
+            gap: 2rem;
+            align-items: center;
+        }
+        .chip-button {
+            transition: transform 0.1s ease-out;
+            position: relative; /* For floating score */
+            overflow: hidden; /* Hide overflowing score numbers */
+        }
+        .chip-button:active {
+            transform: scale(0.95);
+        }
+        .upgrade-button {
+            background: linear-gradient(145deg, #F9A825, #E68A00);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 10px rgba(249, 168, 37, 0.3);
+            width: 100%; /* Make buttons full width in their container */
+        }
+        .upgrade-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(249, 168, 37, 0.4);
+        }
+        .upgrade-button:disabled {
+            background: #4a4a6a; /* Darker disabled background */
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+            color: #888; /* Lighter disabled text */
+        }
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .message-box button {
+            background-color: #F9A825;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+        .floating-score {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #F9A825;
+            opacity: 0;
+            animation: fadeOutUp 1s forwards;
+            pointer-events: none; /* Allow clicks to pass through */
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        @keyframes fadeOutUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Message Box for alerts -->
+    <div id="messageBox" class="message-box">
+        <p id="messageText"></p>
+        <button onclick="hideMessageBox()">OK</button>
+    </div>
+
+    <div class="game-container">
+        <!-- Game Area -->
+        <div class="flex flex-col items-center justify-center p-4 w-full">
+            <h1 class="text-4xl font-extrabold text-[#F9A825] mb-6">Snactive Chip Tapper!</h1>
+
+            <div class="text-3xl font-bold text-[#F9A825] mb-8">Score: <span id="scoreDisplay">0</span></div>
+
+            <!-- Clickable Chip -->
+            <button id="chipButton" class="chip-button w-64 h-64 md:w-80 md:h-80 bg-[#3a3a5a] rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transition-shadow duration-200 cursor-pointer mb-8">
+                <!-- SVG for a chip icon -->
+                <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#D2B48C" stroke="#A0522D" stroke-width="3"/>
+                    <path d="M30 35C35 25 45 20 50 20C55 20 65 25 70 35" stroke="#A0522D" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M25 50C30 40 40 35 50 35C60 35 70 40 75 50" stroke="#A0522D" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M30 65C35 55 45 50 50 50C55 50 65 55 70 65" stroke="#A0522D" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="35" cy="40" r="3" fill="#A0522D"/>
+                    <circle cx="65" cy="60" r="3" fill="#A0522D"/>
+                    <circle cx="45" cy="70" r="3" fill="#A0522D"/>
+                </svg>
+            </button>
+
+            <div class="text-xl text-gray-300">Points per tap: <span id="clickPowerDisplay">1</span></div>
+            <div class="text-xl text-gray-300">Auto-tappers: <span id="autoClickersDisplay">0</span></div>
+        </div>
+
+        <!-- Upgrades Section -->
+        <div class="flex flex-col p-4 w-full max-w-md"> <!-- Constrain width for upgrades -->
+            <h2 class="text-3xl font-bold text-[#F9A825] mb-6 text-center">Upgrades</h2>
+            <div id="upgradesContainer" class="grid grid-cols-1 gap-4 mb-10">
+                <!-- Upgrades will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Game State
+        let score = 0;
+        let clickPower = 1;
+        let autoClickers = 0;
+        const autoClickRate = 1000; // milliseconds (1 second)
+        let autoClickInterval;
+
+        const upgrades = [
+            { id: 'powerClick', name: 'Power Click', description: 'Increases points per tap by 1', cost: 10, effect: () => clickPower++ },
+            { id: 'autoClicker', name: 'Auto Tapper', description: 'Automatically taps for you (1 point/sec)', cost: 50, effect: () => autoClickers++ }
+        ];
+
+        // DOM Elements
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const chipButton = document.getElementById('chipButton');
+        const clickPowerDisplay = document.getElementById('clickPowerDisplay');
+        const autoClickersDisplay = document.getElementById('autoClickersDisplay');
+        const upgradesContainer = document.getElementById('upgradesContainer');
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+
+        // --- Message Box Functions (instead of alert/confirm) ---
+        function showMessageBox(message) {
+            messageText.textContent = message;
+            messageBox.style.display = 'block';
+        }
+
+        function hideMessageBox() {
+            messageBox.style.display = 'none';
+        }
+
+        // --- Game Logic Functions ---
+
+        function updateUI() {
+            scoreDisplay.textContent = Math.floor(score);
+            clickPowerDisplay.textContent = clickPower;
+            autoClickersDisplay.textContent = autoClickers;
+
+            // Update upgrade button states
+            upgrades.forEach(upgrade => {
+                const button = document.getElementById(`buy-${upgrade.id}`);
+                if (button) {
+                    button.disabled = score < upgrade.cost;
+                    button.textContent = `${upgrade.name} (Cost: ${upgrade.cost} | Current: ${upgrade.id === 'powerClick' ? clickPower : autoClickers})`;
+                }
+            });
+        }
+
+        function chipClick(event) {
+            score += clickPower;
+            updateUI();
+            
+            // Create floating score animation
+            const floatingScore = document.createElement('div');
+            floatingScore.textContent = `+${clickPower}`;
+            floatingScore.className = 'floating-score';
+            
+            // Position the floating score near the click
+            floatingScore.style.left = `${event.clientX - chipButton.getBoundingClientRect().left}px`;
+            floatingScore.style.top = `${event.clientY - chipButton.getBoundingClientRect().top}px`;
+            
+            chipButton.appendChild(floatingScore);
+
+            // Remove the element after animation
+            floatingScore.addEventListener('animationend', () => {
+                floatingScore.remove();
+            });
+        }
+
+        function buyUpgrade(upgradeIndex) {
+            const upgrade = upgrades[upgradeIndex];
+            if (score >= upgrade.cost) {
+                score -= upgrade.cost;
+                upgrade.effect(); // Apply the upgrade effect
+                upgrade.cost = Math.floor(upgrade.cost * 1.5); // Increase cost for next level
+                updateUI();
+                if (upgrade.id === 'autoClicker') {
+                    startAutoClicker(); // Ensure auto-clicker is running
+                }
+            } else {
+                showMessageBox(`Not enough points to buy ${upgrade.name}! You need ${upgrade.cost} points.`);
+            }
+        }
+
+        function startAutoClicker() {
+            if (autoClickInterval) {
+                clearInterval(autoClickInterval); // Clear existing interval if any
+            }
+            autoClickInterval = setInterval(() => {
+                score += autoClickers; // Each auto-clicker adds 1 point per second
+                updateUI();
+            }, autoClickRate);
+        }
+
+        function renderUpgrades() {
+            upgradesContainer.innerHTML = ''; // Clear previous buttons
+            upgrades.forEach((upgrade, index) => {
+                const button = document.createElement('button');
+                button.id = `buy-${upgrade.id}`;
+                button.className = 'upgrade-button';
+                button.textContent = `${upgrade.name} (Cost: ${upgrade.cost} | Current: ${upgrade.id === 'powerClick' ? clickPower : autoClickers})`;
+                button.onclick = (event) => {
+                    // Prevent button from triggering chip click if it overlaps
+                    event.stopPropagation(); 
+                    buyUpgrade(index);
+                };
+                upgradesContainer.appendChild(button);
+            });
+            updateUI(); // Initial update to set button states
+        }
+
+        // --- Event Listeners and Initial Setup ---
+        window.onload = async function() {
+            chipButton.addEventListener('click', chipClick);
+            renderUpgrades(); // Render upgrade buttons
+            updateUI(); // Initial UI update
+        };
+    </script>
+
+</body>
+</html>
