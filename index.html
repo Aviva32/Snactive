@@ -493,11 +493,11 @@
                     if (element.classList.contains('techy-heading')) {
                         baseGlowBlur = 40 * intensity; // Further increased
                         strongGlowBlur = 80 * intensity; // Further increased
-                        element.style.textShadow = 0 0 ${baseGlowBlur}px hsla(${hue}, 100%, 70%, ${1.0 * intensity}), 0 0 ${strongGlowBlur}px hsla(${(hue + 60) % 360}, 100%, 60%, ${0.9 * intensity}); // Increased opacity
+                        element.style.textShadow = `0 0 ${baseGlowBlur}px hsla(${hue}, 100%, 70%, ${1.0 * intensity}), 0 0 ${strongGlowBlur}px hsla(${(hue + 60) % 360}, 100%, 60%, ${0.9 * intensity})`; // Increased opacity
                     } else if (element.classList.contains('techy-subheading') || element.classList.contains('techy-text-glow')) {
                         baseGlowBlur = 25 * intensity; // Further increased
                         strongGlowBlur = 50 * intensity; // Further increased
-                        element.style.textShadow = 0 0 ${baseGlowBlur}px hsla(${hue}, 100%, 70%, ${0.9 * intensity}), 0 0 ${strongGlowBlur}px hsla(${(hue + 60) % 360}, 100%, 60%, ${0.7 * intensity}); // Increased opacity
+                        element.style.textShadow = `0 0 ${baseGlowBlur}px hsla(${hue}, 100%, 70%, ${0.9 * intensity}), 0 0 ${strongGlowBlur}px hsla(${(hue + 60) % 360}, 100%, 60%, ${0.7 * intensity})`; // Increased opacity
                     }
                 } else {
                     element.style.textShadow = 'none'; // No glow outside the range
@@ -529,8 +529,8 @@
                 emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)]; // Random emoji
                 
                 // Set initial position near the clicked text
-                emoji.style.left = ${startX}px;
-                emoji.style.top = ${startY}px;
+                emoji.style.left = startX + 'px';
+                emoji.style.top = startY + 'px';
 
                 // Randomize animation properties
                 const offsetX = (Math.random() - 0.5) * 400; // Wider horizontal spread
@@ -539,14 +539,14 @@
                 const duration = 1.5 + Math.random() * 1.5; // Random duration between 1s and 3s
                 const delay = Math.random() * 0.5; // Staggered start
 
-                emoji.style.animationDuration = ${duration}s;
-                emoji.style.animationDelay = ${delay}s;
-                emoji.style.setProperty('--emoji-offset-x', ${offsetX}px);
-                emoji.style.setProperty('--emoji-offset-y', ${offsetY}px);
-                emoji.style.setProperty('--emoji-rotate-deg', ${rotateDeg}deg);
+                emoji.style.animationDuration = duration + 's';
+                emoji.style.animationDelay = delay + 's';
+                emoji.style.setProperty('--emoji-offset-x', offsetX + 'px');
+                emoji.style.setProperty('--emoji-offset-y', offsetY + 'px');
+                emoji.style.setProperty('--emoji-rotate-deg', rotateDeg + 'deg');
                 // Define end points for the animation to ensure they move outwards
-                emoji.style.setProperty('--emoji-offset-x-end', ${offsetX * 2}px);
-                emoji.style.setProperty('--emoji-offset-y-end', ${offsetY * 2}px);
+                emoji.style.setProperty('--emoji-offset-x-end', (offsetX * 2) + 'px');
+                emoji.style.setProperty('--emoji-offset-y-end', (offsetY * 2) + 'px');
 
 
                 document.body.appendChild(emoji);
@@ -578,8 +578,8 @@
                 emojiSpan.textContent = emoji;
                 
                 // Set initial position at the click point
-                emojiSpan.style.left = ${clickX}px;
-                emojiSpan.style.top = ${clickY}px;
+                emojiSpan.style.left = clickX + 'px';
+                emojiSpan.style.top = clickY + 'px';
                 
                 // Randomize animation properties for a scattered burst
                 const angle = Math.random() * Math.PI * 2; // Full circle
@@ -591,14 +591,14 @@
                 const duration = 1 + Math.random() * 1; // Duration between 1s and 2s
                 const delay = Math.random() * 0.2; // Staggered start
 
-                emojiSpan.style.animationDuration = ${duration}s;
-                emojiSpan.style.animationDelay = ${delay}s;
-                emojiSpan.style.setProperty('--lock-offset-x', ${offsetX}px);
-                emojiSpan.style.setProperty('--lock-offset-y', ${offsetY}px);
-                emojiSpan.style.setProperty('--lock-rotate-deg', ${rotateDeg}deg);
+                emojiSpan.style.animationDuration = duration + 's';
+                emojiSpan.style.animationDelay = delay + 's';
+                emojiSpan.style.setProperty('--lock-offset-x', offsetX + 'px');
+                emojiSpan.style.setProperty('--lock-offset-y', offsetY + 'px');
+                emojiSpan.style.setProperty('--lock-rotate-deg', rotateDeg + 'deg');
                 // Define end points for the animation to ensure they move outwards
-                emojiSpan.style.setProperty('--lock-offset-x-end', ${offsetX * 2}px);
-                emojiSpan.style.setProperty('--lock-offset-y-end', ${offsetY * 2}px);
+                emojiSpan.style.setProperty('--lock-offset-x-end', (offsetX * 2) + 'px');
+                emojiSpan.style.setProperty('--lock-offset-y-end', (offsetY * 2) + 'px');
 
                 document.body.appendChild(emojiSpan); // Append to body, as click is document-relative
 
@@ -657,7 +657,7 @@
                         // Trigger icon animation specifically for cards within the observed section
                         const icons = entry.target.querySelectorAll('.feature-icon path, .feature-icon circle, .feature-icon rect');
                         icons.forEach(icon => {
-                            icon.style.animation = icon-draw 0.8s ease-out forwards;
+                            icon.style.animation = "icon-draw 0.8s ease-out forwards";
                             icon.style.animationDelay = icon.style.getPropertyValue('--icon-delay');
                         });
 
