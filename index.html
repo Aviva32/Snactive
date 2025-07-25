@@ -19,9 +19,21 @@
             background-color: #1A1A1A; /* Dark body background */
             color: #E0E0E0; /* Light text color */
             overflow-x: hidden;
+            position: relative; /* Needed for fixed particles */
+            min-height: 100vh; /* Ensure body covers full viewport for particles */
+        }
+        /* Particles container covering the whole body */
+        #particles-js {
+            position: fixed; /* Fixed to viewport */
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Behind all content */
+            background-color: transparent; /* Allows body background to show if needed */
         }
         .hero-background {
-            background-image: url('https://placehold.co/1920x1080/2A2A2A/E0E0E0?text=Dark+Delicious+Snack+Visual'); /* Dark hero background */
+            background-color: transparent; /* Now just a transparent layer over particles */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -33,17 +45,7 @@
             padding: 2rem;
             text-align: center;
         }
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            background-color: transparent;
-        }
         .hero-overlay {
-            /* Removed background-image: url('snactive-logox.jpg'); */
             background-color: rgba(0, 0, 0, 0.6); /* Darker translucent overlay */
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -103,28 +105,31 @@
         .glow-effect:hover {
             box-shadow: 0 0 25px rgba(0, 196, 180, 0.8), 0 0 50px rgba(0, 196, 180, 0.6);
         }
+
+        /* Techy Text Styles - Base styles without text-shadow (as RGB glow removed) */
         .techy-heading, .techy-subheading, .techy-text-glow {
             font-family: 'VT323', monospace;
             font-weight: normal;
             letter-spacing: 0.08em;
+            /* Removed text-shadow transitions and hover effects */
         }
         .techy-subheading {
             letter-spacing: 0.03em;
         }
+
+        /* Specific class for words that should glow */
+        .glowing-word {
+            transition: text-shadow 0.3s ease-out; /* Smooth transition for dynamic glow */
+        }
+
+        /* Removed all emoji burst styles and keyframes */
+        /* @keyframes emoji-float-out, @keyframes lock-float-out, etc. */
+
         @keyframes pulse-subtle { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
         .animate-pulse-subtle { animation: pulse-subtle 3s infinite ease-in-out; }
         @keyframes bounce-subtle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         .animate-bounce-subtle { animation: bounce-subtle 1.5s infinite ease-in-out; }
-        @keyframes emoji-float-out {
-            0% { transform: translate(0, 0) rotate(0deg) scale(1.0); opacity: 1.0; }
-            10% { opacity: 1; transform: translate(var(--emoji-offset-x), var(--emoji-offset-y)) rotate(var(--emoji-rotate-deg)) scale(1.5); }
-            100% { transform: translate(var(--emoji-offset-x-end), var(--emoji-offset-y-end)) rotate(var(--emoji-rotate-deg)) scale(0); opacity: 0; }
-        }
-        @keyframes lock-float-out {
-            0% { transform: translate(0, 0) rotate(0deg) scale(1.0); opacity: 1.0; }
-            10% { opacity: 1; transform: translate(var(--lock-offset-x), var(--lock-offset-y)) rotate(var(--lock-rotate-deg)) scale(1.5); }
-            100% { transform: translate(var(--lock-offset-x-end), var(--lock-offset-y-end)) rotate(var(--lock-rotate-deg)) scale(0); opacity: 0; }
-        }
+
         .confetti-burst {
             position: fixed;
             font-size: 1.8rem;
@@ -141,7 +146,7 @@
 
         #backToTopBtn {
             display: none; position: fixed; bottom: 8rem; right: 1.5rem; z-index: 999;
-            background-color: #00A395; /* Darker teal for dark theme */
+            background-color: #00A395; /* Darker teal */
             color: white; width: 3rem; height: 3rem; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
@@ -169,6 +174,23 @@
             0% { opacity: 0; transform: scale(0.5) rotate(-30deg); stroke-dashoffset: 1000; }
             100% { opacity: 1; transform: scale(1) rotate(0deg); stroke-dashoffset: 0; }
         }
+
+        /* New translucent box for text containers */
+        .text-container-translucent {
+            background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent dark background */
+            backdrop-filter: blur(8px); /* Subtle blur */
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 0.75rem; /* Slightly rounded corners */
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1.5rem; /* Space below if used as a block */
+        }
+        /* Adjust padding for smaller screens */
+        @media (max-width: 768px) {
+            .text-container-translucent {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -178,7 +200,7 @@
         <div class="flex items-center">
             <!-- Logo - Smaller in header, still prominent -->
             <img src="snactive-logox.jpg" alt="Snactive Logo" class="h-10 md:h-12 mr-3 rounded-full">
-            <span class="text-2xl md:text-3xl font-extrabold text-[#E0E0E0] techy-heading">Snactive</span>
+            <!-- Removed <span>Snactive</span> text -->
         </div>
         <nav class="flex items-center space-x-6">
             <a href="#" class="text-[#E0E0E0] hover:text-[#00C4B4] font-medium transition-colors duration-200 techy-subheading">HOME</a>
@@ -193,13 +215,13 @@
         <div id="particles-js"></div> <!-- Particles container -->
         <div class="relative z-10 hero-overlay glow-effect">
             <h1 class="text-4xl md:text-6xl font-extrabold text-[#F5F5F5] mb-4 leading-tight techy-heading">
-                HIGH-PROTEIN. BOLD FLAVOR. GUILT-FREE CRUNCH.
+                <span class="glowing-word">HIGH-PROTEIN.</span> <span class="glowing-word">BOLD FLAVOR.</span> <span class="glowing-word">GUILT-FREE CRUNCH.</span>
             </h1>
             <p class="text-lg md:text-xl text-[#C0C0C0] mb-8 leading-relaxed techy-subheading">
                 YOUR NEW FAVORITE SNACK IS ALMOST HERE. CRAFTED WITH CLEAN INGREDIENTS AND PACKED WITH PROTEIN, OUR CHIPS FUEL YOUR DAY—WITHOUT COMPROMISING ON TASTE.
             </p>
             <p id="launchingSoonText" class="relative text-2xl md:text-3xl font-bold text-[#FFFFFF] mb-10 animate-bounce-subtle techy-heading cursor-pointer">
-                🚀 LAUNCHING SOON IN 2025! 🚀
+                🚀 <span class="glowing-word">LAUNCHING SOON</span> IN <span class="glowing-word">2025!</span> 🚀
             </p>
             
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
@@ -213,9 +235,9 @@
 
     <!-- About the Brand Section -->
     <section class="py-16 px-6 md:px-12 bg-[#1A1A1A] text-center section-to-observe">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-5xl mx-auto text-container-translucent">
             <h2 class="text-3xl md:text-4xl font-extrabold text-[#F5F5F5] mb-10 techy-heading">
-                SNACKING, REINVENTED.
+                SNACKING, <span class="glowing-word">REINVENTED.</span>
             </h2>
             <p class="text-lg text-[#C0C0C0] leading-relaxed mb-12 techy-subheading">
                 WE’RE NOT JUST MAKING CHIPS—WE'RE MAKING A STATEMENT. OUR MISSION IS TO BRING HIGH-PROTEIN, LOW-GUILT SNACKING TO THE FOREFRONT WITH A CRUNCH YOU’LL CRAVE. WHETHER YOU'RE AN ATHLETE, A STUDENT, OR JUST SNACK-SAVVY, OUR PROTEIN CHIPS ARE DESIGNED TO KEEP YOU ENERGIZED, SATISFIED, AND READY FOR ANYTHING.
@@ -286,12 +308,12 @@
 
     <!-- Coming Soon Countdown -->
     <section class="py-16 px-6 md:px-12 bg-[#333333] text-center rounded-xl mx-4 md:mx-12 shadow-inner glow-effect section-to-observe">
-        <div class="max-w-3xl mx-auto">
+        <div class="max-w-3xl mx-auto text-container-translucent">
             <h2 class="text-3xl md:text-4xl font-extrabold text-[#00C4B4] mb-6 flex items-center justify-center techy-heading">
                 <i class="fas fa-rocket text-4xl mr-4"></i> GET READY FOR THE CRUNCH!
             </h2>
             <p class="text-xl md:text-2xl text-[#C0C0C0] leading-relaxed font-semibold techy-subheading">
-                OUR FLAVOR ENGINEERS ARE PERFECTING EVERY BITE. STAY TUNED FOR OUR GRAND LAUNCH IN <span class="font-bold text-[#FFFFFF] text-2xl md:text-3xl">SEPTEMBER 2025</span>!
+                OUR FLAVOR ENGINEERS ARE PERFECTING EVERY BITE. STAY TUNED FOR OUR GRAND LAUNCH IN <span class="font-bold text-[#FFFFFF] techy-subheading glowing-word">SEPTEMBER 2025</span>!
             </p>
             <!-- A real countdown timer would require JavaScript -->
         </div>
@@ -299,7 +321,7 @@
 
     <!-- Flavor Teasers -->
     <section class="py-16 px-6 md:px-12 bg-[#1A1A1A] text-center section-to-observe">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-6xl mx-auto text-container-translucent">
             <h2 class="text-3xl md:text-4xl font-extrabold text-[#F5F5F5] mb-10 techy-heading">
                 SNEAK A PEEK AT OUR DEBUT FLAVORS
             </h2>
@@ -330,9 +352,9 @@
 
     <!-- Community & Mission (Optional) -->
     <section class="py-16 px-6 md:px-12 bg-[#1A1A1A] text-center section-to-observe">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-4xl mx-auto text-container-translucent">
             <h2 class="text-3xl md:text-4xl font-extrabold text-[#F5F5F5] mb-6 techy-heading">
-                SNACK STRONG. LIVE BOLD.
+                SNACK STRONG. <span class="glowing-word">LIVE BOLD.</span>
             </h2>
             <p class="text-lg text-[#C0C0C0] leading-relaxed mb-12 techy-subheading">
                 OUR MISSION GOES BEYOND CHIPS. WE’RE BUILDING A COMMUNITY OF SNACKERS WHO BELIEVE THAT HEALTHY CAN BE DELICIOUS, AND PERFORMANCE STARTS WITH WHAT YOU EAT. JOIN US ON THIS JOURNEY!
@@ -348,7 +370,7 @@
             <p class="mb-4 techy-subheading">SIGN UP FOR OUR NEWSLETTER TO GET THE LATEST UPDATES AND EXCLUSIVE OFFERS.</p>
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-10">
                 <input type="email" placeholder="YOUR EMAIL ADDRESS" class="p-3 border-2 border-[#00C4B4] rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFFFFF] w-full sm:w-96 text-[#F5F5F5] bg-[#1A1A1A] shadow-inner techy-subheading">
-                <button class="btn-primary flex items-center justify-center w-full sm:w-auto techy-subheading">
+                <button id="subscribeButton" class="btn-primary flex items-center justify-center w-full sm:w-auto techy-subheading">
                     SUBSCRIBE
                 </button>
             </div>
@@ -386,7 +408,8 @@
 
         // Function to check and apply glow based on scroll position
         function checkTextGlow(hue) {
-            const techyElements = document.querySelectorAll('.techy-heading, .techy-subheading, .techy-text-glow');
+            // Target only elements with the 'glowing-word' class
+            const techyElements = document.querySelectorAll('.glowing-word');
             const viewportCenter = window.innerHeight / 2;
             const glowDistance = window.innerHeight * 0.7; // Wider activation area
 
@@ -403,11 +426,11 @@
                     let strongGlowBlur = 0;
 
                     // Significantly increased blur values and opacity for a very pronounced glow
-                    if (element.classList.contains('techy-heading')) {
+                    if (element.closest('.techy-heading')) { // Check if it's within a techy-heading
                         baseGlowBlur = 40 * intensity; // Further increased
                         strongGlowBlur = 80 * intensity; // Further increased
                         element.style.textShadow = `0 0 ${baseGlowBlur}px hsla(${hue}, 100%, 70%, ${1.0 * intensity}), 0 0 ${strongGlowBlur}px hsla(${(hue + 60) % 360}, 100%, 60%, ${0.9 * intensity})`; // Increased opacity
-                    } else if (element.classList.contains('techy-subheading') || element.classList.contains('techy-text-glow')) {
+                    } else { // For glowing words within subheadings or regular text
                         baseGlowBlur = 25 * intensity; // Further increased
                         strongGlowBlur = 50 * intensity; // Further increased
                         element.style.textShadow = `0 0 ${baseGlowBlur}px hsla(${hue}, 100%, 70%, ${0.9 * intensity}), 0 0 ${strongGlowBlur}px hsla(${(hue + 60) % 360}, 100%, 60%, ${0.7 * intensity})`; // Increased opacity
@@ -430,7 +453,7 @@
         launchingSoonText.addEventListener('click', launchEmojis);
 
         function launchEmojis() {
-            const emojis = ['🍟', '🍏', '🥦', '🥕', '🌱', '✨', '🎉', '🚀', '💪', '🔥']; // Curated list of emojis
+            const emojis = ['🍟', '🍏', '🥦', '🥕', '🌱', '✨', '�', '🚀', '💪', '🔥']; // Curated list of emojis
             const numEmojis = 30; // Number of emojis to launch
             const rect = launchingSoonText.getBoundingClientRect(); // Get position of the text
             const startX = rect.left + rect.width / 2;
@@ -522,38 +545,76 @@
             }
         }
 
-        // Initial setup on window load
+        // Confetti burst for Notify Me button
+        const notifyMeButton = document.getElementById('notifyMeButton');
+        notifyMeButton.addEventListener('click', launchConfetti);
+
+        function launchConfetti(event) {
+            const confettiEmojis = ['✨', '🎉', '🌟', '🥳', '✅']; // Confetti emojis
+            const numConfetti = 40;
+            const rect = notifyMeButton.getBoundingClientRect();
+            const startX = rect.left + rect.width / 2;
+            const startY = rect.top + rect.height / 2;
+
+            for (let i = 0; i < numConfetti; i++) {
+                const confetti = document.createElement('span');
+                confetti.className = 'confetti-burst';
+                confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+                
+                confetti.style.left = `${startX}px`;
+                confetti.style.top = `${startY}px`;
+
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 80 + Math.random() * 120;
+                const offsetX = Math.cos(angle) * distance;
+                const offsetY = Math.sin(angle) * distance;
+                
+                const rotateDeg = (Math.random() - 0.5) * 720;
+                const duration = 1.5 + Math.random() * 1;
+                const delay = Math.random() * 0.3;
+
+                confetti.style.animationDuration = `${duration}s`;
+                confetti.style.animationDelay = `${delay}s`;
+                confetti.style.setProperty('--confetti-offset-x', `${offsetX}px`);
+                confetti.style.setProperty('--confetti-offset-y', `${offsetY}px`);
+                confetti.style.setProperty('--confetti-rotate-deg', `${rotateDeg}deg`);
+                confetti.style.setProperty('--confetti-offset-x-end', `${offsetX * 1.5}px`);
+                confetti.style.setProperty('--confetti-offset-y-end', `${offsetY * 1.5}px`);
+
+                document.body.appendChild(confetti);
+
+                confetti.addEventListener('animationend', () => {
+                    confetti.remove();
+                });
+            }
+        }
+
         window.onload = function() {
-            animateGlow(); // Start the continuous animation loop for glow
-            initScrollAnimations(); // Initialize scroll animations for SVG icons
-            initBackToTopButton(); // Initialize back to top button logic
-            initParticles(); // Initialize particles.js
+            animateGlow();
+            initScrollAnimations();
+            initBackToTopButton();
+            initParticles();
         };
 
-        // Re-evaluate glow on window resize (e.g., if viewportCenter or glowDistance changes)
         window.addEventListener('resize', () => {
-            checkTextGlow(currentHue); // Re-run the glow check on resize
+            checkTextGlow(currentHue);
         });
 
         function openMiniGame() {
             window.open('snactive-minigame.html', '_blank');
         }
 
-        // --- Scroll Animation Logic for SVG Icons ---
-        // Target elements that should trigger animations when visible
         const elementsToAnimateOnScroll = document.querySelectorAll('.section-to-observe');
 
         const observerOptions = {
-            root: null, // viewport as the root
+            root: null,
             rootMargin: '0px',
-            threshold: 0.1 // Trigger when 10% of the element is visible
+            threshold: 0.1
         };
 
         function initScrollAnimations() {
-            // Fallback for browsers not supporting IntersectionObserver
             if (!('IntersectionObserver' in window)) {
                 elementsToAnimateOnScroll.forEach(element => {
-                    // Ensure icons are visible if no observer
                     const icons = element.querySelectorAll('.feature-icon path, .feature-icon circle, .feature-icon rect');
                     icons.forEach(icon => {
                         icon.style.opacity = 1;
@@ -567,14 +628,12 @@
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Trigger icon animation specifically for cards within the observed section
                         const icons = entry.target.querySelectorAll('.feature-icon path, .feature-icon circle, .feature-icon rect');
                         icons.forEach(icon => {
                             icon.style.animation = `icon-draw 0.8s ease-out forwards`;
                             icon.style.animationDelay = icon.style.getPropertyValue('--icon-delay');
                         });
-
-                        observer.unobserve(entry.target); // Stop observing once animated
+                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
@@ -584,20 +643,17 @@
             });
         }
 
-        // --- Back to Top Button Logic ---
         const backToTopBtn = document.getElementById('backToTopBtn');
 
         function initBackToTopButton() {
-            // Show/hide button on scroll
             window.addEventListener('scroll', () => {
-                if (window.scrollY > window.innerHeight * 0.5) { // Show after scrolling half a viewport
+                if (window.scrollY > window.innerHeight * 0.5) {
                     backToTopBtn.classList.add('show');
                 } else {
                     backToTopBtn.classList.remove('show');
                 }
             });
 
-            // Smooth scroll to top on click
             backToTopBtn.addEventListener('click', () => {
                 window.scrollTo({
                     top: 0,
@@ -606,7 +662,6 @@
             });
         }
 
-        // --- particles.js Initialization ---
         function initParticles() {
             particlesJS('particles-js', {
                 "particles": {
