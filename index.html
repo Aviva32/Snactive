@@ -6,74 +6,68 @@
     <title>Snactive - High-Protein. Bold Flavor. Guilt-Free Crunch.</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for social media icons (still useful for other places) -->
+    <!-- Font Awesome for social media icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Fonts: Inter for general text, VT323 for techy headings -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=VT323&display=swap" rel="stylesheet">
     <!-- particles.js CDN -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
+        /* All colors now directly reflect the dark theme */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F8F8F8; /* Very light gray background */
-            color: #333333; /* Dark text color */
+            background-color: #1A1A1A; /* Dark body background */
+            color: #E0E0E0; /* Light text color */
             overflow-x: hidden;
         }
         .hero-background {
-            /* Placeholder image - replace with high-quality product image/video */
-            background-image: url('https://placehold.co/1920x1080/D0D0D0/333333?text=Delicious+Snack+Visual');
+            background-image: url('https://placehold.co/1920x1080/2A2A2A/E0E0E0?text=Dark+Delicious+Snack+Visual'); /* Dark hero background */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             position: relative;
-            min-height: 80vh; /* Adjust height for visual impact */
+            min-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
             text-align: center;
         }
-        /* Particles container */
         #particles-js {
             position: absolute;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: 0; /* Behind the hero overlay */
-            background-color: transparent; /* Ensure particles are on top of hero-background image */
+            z-index: 0;
+            background-color: transparent;
         }
         .hero-overlay {
-            /* Logo as background for the translucent overlay */
-            background-image: url('snactive-logox.jpg');
-            background-size: 150px; /* Adjust size of repeating logo */
-            background-repeat: repeat;
-            background-position: center center;
-            
-            background-color: rgba(255, 255, 255, 0.5); /* More transparent to show logo */
-            backdrop-filter: blur(12px); /* Increased blur for better readability over logo */
+            /* Removed background-image: url('snactive-logox.jpg'); */
+            background-color: rgba(0, 0, 0, 0.6); /* Darker translucent overlay */
+            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 1.5rem;
             padding: 3rem 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Darker shadow */
             max-width: 900px;
             width: 100%;
-            position: relative; /* Ensure overlay is above particles */
-            z-index: 1; /* Above particles */
+            position: relative;
+            z-index: 1;
         }
         .flavor-teaser-image {
-            filter: blur(2px); /* Subtle blur for intrigue */
+            filter: blur(2px);
             transition: filter 0.3s ease-in-out;
         }
         .flavor-teaser-image:hover {
-            filter: blur(0); /* Unblur on hover */
+            filter: blur(0);
         }
         .btn-primary {
             background-color: #00C4B4; /* Vibrant Teal */
             color: white;
             font-weight: bold;
             padding: 0.75rem 2rem;
-            border-radius: 9999px; /* Pill shape */
+            border-radius: 9999px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 196, 180, 0.3);
         }
@@ -87,7 +81,7 @@
             color: white;
             font-weight: bold;
             padding: 0.75rem 2rem;
-            border-radius: 9999px; /* Pill shape */
+            border-radius: 9999px;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
@@ -97,202 +91,120 @@
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
         .card-light {
-            background-color: #FFFFFF;
+            background-color: #2A2A2A; /* Dark card background */
             border-radius: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); /* Darker shadow */
             padding: 2rem;
         }
-        /* Glow effect for cards and main elements */
         .glow-effect {
-            box-shadow: 0 0 15px rgba(0, 196, 180, 0.4), 0 0 30px rgba(0, 196, 180, 0.2); /* Teal glow */
+            box-shadow: 0 0 15px rgba(0, 196, 180, 0.6), 0 0 30px rgba(0, 196, 180, 0.4); /* Brighter glow for dark theme */
             transition: box-shadow 0.3s ease-in-out;
         }
         .glow-effect:hover {
-            box-shadow: 0 0 20px rgba(0, 196, 180, 0.6), 0 0 40px rgba(0, 196, 180, 0.3);
+            box-shadow: 0 0 25px rgba(0, 196, 180, 0.8), 0 0 50px rgba(0, 196, 180, 0.6);
         }
-
-        /* Techy Text Styles - Base styles without text-shadow */
         .techy-heading, .techy-subheading, .techy-text-glow {
             font-family: 'VT323', monospace;
-            font-weight: normal; /* VT323 is monoweight */
-            transition: text-shadow 0.3s ease-out; /* Smooth transition for dynamic glow */
-            letter-spacing: 0.08em; /* Default for headings */
+            font-weight: normal;
+            letter-spacing: 0.08em;
         }
         .techy-subheading {
-            letter-spacing: 0.03em; /* Slightly less for subheadings */
+            letter-spacing: 0.03em;
         }
-
-        @keyframes pulse-subtle {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-        .animate-pulse-subtle {
-            animation: pulse-subtle 3s infinite ease-in-out;
-        }
-        @keyframes bounce-subtle {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        .animate-bounce-subtle {
-            animation: bounce-subtle 1.5s infinite ease-in-out;
-        }
-
-        /* Emoji Burst Styles (for Launching Soon) */
-        .emoji-burst {
-            position: fixed; /* Use fixed to ensure it's relative to viewport */
-            font-size: 2.5rem; /* Increased size for visibility */
-            opacity: 0;
-            animation: emoji-float-out 2s forwards ease-out; /* Animation for emojis */
-            z-index: 1000;
-            pointer-events: none; /* Allow clicks to pass through */
-        }
-
+        @keyframes pulse-subtle { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+        .animate-pulse-subtle { animation: pulse-subtle 3s infinite ease-in-out; }
+        @keyframes bounce-subtle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .animate-bounce-subtle { animation: bounce-subtle 1.5s infinite ease-in-out; }
         @keyframes emoji-float-out {
-            0% {
-                transform: translate(0, 0) rotate(0deg) scale(1.0); /* Larger initial scale */
-                opacity: 1.0; /* Fully visible initially */
-            }
-            10% {
-                opacity: 1;
-                transform: translate(var(--emoji-offset-x), var(--emoji-offset-y)) rotate(var(--emoji-rotate-deg)) scale(1.5); /* Larger scale during animation */
-            }
-            100% {
-                transform: translate(var(--emoji-offset-x-end), var(--emoji-offset-y-end)) rotate(var(--emoji-rotate-deg)) scale(0); /* Changed to scale(0) for clear contraction */
-                opacity: 0;
-            }
+            0% { transform: translate(0, 0) rotate(0deg) scale(1.0); opacity: 1.0; }
+            10% { opacity: 1; transform: translate(var(--emoji-offset-x), var(--emoji-offset-y)) rotate(var(--emoji-rotate-deg)) scale(1.5); }
+            100% { transform: translate(var(--emoji-offset-x-end), var(--emoji-offset-y-end)) rotate(var(--emoji-rotate-deg)) scale(0); opacity: 0; }
         }
-
-        /* Lock Emoji Burst Styles (for Flavor Teasers) */
-        .lock-emoji-burst {
-            position: fixed; /* Use fixed to ensure it's relative to viewport */
-            font-size: 2.2rem; /* Increased size of lock emojis */
-            opacity: 0;
-            animation: lock-float-out 1.5s forwards ease-out; /* Animation for emojis */
-            z-index: 1001; /* Higher z-index to be on top */
-            pointer-events: none; /* Allow clicks to pass through */
-        }
-
         @keyframes lock-float-out {
-            0% {
-                transform: translate(0, 0) rotate(0deg) scale(1.0); /* Larger initial scale */
-                opacity: 1.0; /* Fully visible initially */
-            }
-            10% {
-                opacity: 1;
-                transform: translate(var(--lock-offset-x), var(--lock-offset-y)) rotate(var(--lock-rotate-deg)) scale(1.5); /* Larger scale during animation */
-            }
-            100% {
-                transform: translate(var(--lock-offset-x-end), var(--lock-offset-y-end)) rotate(var(--lock-rotate-deg)) scale(0); /* Changed to scale(0) for clear contraction */
-                opacity: 0;
-            }
+            0% { transform: translate(0, 0) rotate(0deg) scale(1.0); opacity: 1.0; }
+            10% { opacity: 1; transform: translate(var(--lock-offset-x), var(--lock-offset-y)) rotate(var(--lock-rotate-deg)) scale(1.5); }
+            100% { transform: translate(var(--lock-offset-x-end), var(--lock-offset-y-end)) rotate(var(--lock-rotate-deg)) scale(0); opacity: 0; }
         }
-
-        /* Back to Top Button */
-        #backToTopBtn {
-            display: none; /* Hidden by default */
+        .confetti-burst {
             position: fixed;
-            bottom: 8rem; /* Position above mini-game button */
-            right: 1.5rem;
-            z-index: 999; /* Below mini-game button, above content */
-            background-color: #00C4B4; /* Teal color */
-            color: white;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 10px rgba(0, 196, 180, 0.3);
-            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
-            cursor: pointer;
-            opacity: 0; /* Start hidden */
-            transform: translateY(20px); /* Start slightly below */
+            font-size: 1.8rem;
+            opacity: 0;
+            animation: confetti-float-out 1.8s forwards ease-out;
+            z-index: 1002;
+            pointer-events: none;
         }
-        #backToTopBtn.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        #backToTopBtn:hover {
-            background-color: #00A395;
-            transform: translateY(-2px);
+        @keyframes confetti-float-out {
+            0% { transform: translate(0, 0) rotate(0deg) scale(0.8); opacity: 1.0; }
+            10% { opacity: 1; transform: translate(var(--confetti-offset-x), var(--confetti-offset-y)) rotate(var(--confetti-rotate-deg)) scale(1.2); }
+            100% { transform: translate(var(--confetti-offset-x-end), var(--confetti-offset-y-end)) rotate(var(--confetti-rotate-deg)) scale(0); opacity: 0; }
         }
 
-        /* Animated SVG Icon Styles */
+        #backToTopBtn {
+            display: none; position: fixed; bottom: 8rem; right: 1.5rem; z-index: 999;
+            background-color: #00A395; /* Darker teal for dark theme */
+            color: white; width: 3rem; height: 3rem; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+            cursor: pointer; opacity: 0; transform: translateY(20px);
+        }
+        #backToTopBtn.show { opacity: 1; transform: translateY(0); }
+        #backToTopBtn:hover { background-color: #00C4B4; transform: translateY(-2px); }
+
         .feature-icon {
-            width: 48px; /* Adjust size as needed */
-            height: 48px;
-            margin-right: 0.75rem; /* Space between icon and text */
-            flex-shrink: 0; /* Prevent icon from shrinking */
+            width: 48px; height: 48px; margin-right: 0.75rem; flex-shrink: 0;
         }
-        /* Base styles for SVG paths/circles/rects */
         .feature-icon path, .feature-icon circle, .feature-icon rect {
-            fill: none; /* Ensure no fill for drawing animation */
-            stroke: #00C4B4; /* Ensure stroke is also teal for drawing effect */
-            stroke-width: 2; /* Ensure stroke is visible */
-            transition: fill 0.3s ease;
-            transform-origin: center center;
-            opacity: 0; /* Start hidden for animation */
-            transform: scale(0.5) rotate(-30deg); /* Start small and rotated for animation */
-            stroke-dasharray: 1000; /* Large dasharray for stroke drawing effect */
-            stroke-dashoffset: 1000; /* Start fully offset */
+            fill: none; stroke: #00C4B4; stroke-width: 2; transition: opacity 0.3s ease, transform 0.3s ease, stroke-dashoffset 0.8s ease-out;
+            transform-origin: center center; opacity: 0; transform: scale(0.5) rotate(-30deg);
+            stroke-dasharray: 1000; stroke-dashoffset: 1000;
         }
-        /* Animation for icons when parent is visible */
         .card-light.is-visible .feature-icon path,
         .card-light.is-visible .feature-icon circle,
         .card-light.is-visible .feature-icon rect {
             animation: icon-draw 0.8s ease-out forwards;
-            animation-delay: var(--icon-delay); /* Staggered delay */
+            animation-delay: var(--icon-delay);
         }
-
         @keyframes icon-draw {
-            0% {
-                opacity: 0;
-                transform: scale(0.5) rotate(-30deg);
-                stroke-dashoffset: 1000; /* Start fully offset */
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-                stroke-dashoffset: 0; /* End fully drawn */
-            }
+            0% { opacity: 0; transform: scale(0.5) rotate(-30deg); stroke-dashoffset: 1000; }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); stroke-dashoffset: 0; }
         }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Header -->
-    <header class="bg-white shadow-md py-4 px-6 md:px-12 flex justify-between items-center fixed top-0 left-0 right-0 z-40">
+    <header class="bg-[#2A2A2A] shadow-md py-4 px-6 md:px-12 flex justify-between items-center fixed top-0 left-0 right-0 z-40">
         <div class="flex items-center">
             <!-- Logo - Smaller in header, still prominent -->
             <img src="snactive-logox.jpg" alt="Snactive Logo" class="h-10 md:h-12 mr-3 rounded-full">
-            <span class="text-2xl md:text-3xl font-extrabold text-[#333333] techy-text-glow techy-heading">Snactive</span>
+            <span class="text-2xl md:text-3xl font-extrabold text-[#E0E0E0] techy-heading">Snactive</span>
         </div>
-        <nav class="flex space-x-6">
-            <a href="#" class="text-gray-700 hover:text-[#00C4B4] font-medium transition-colors duration-200 techy-subheading">HOME</a>
-            <a href="#" class="text-gray-700 hover:text-[#00C4B4] font-medium transition-colors duration-200 techy-subheading">ABOUT</a>
-            <a href="#" class="text-gray-700 hover:text-[#00C4B4] font-medium transition-colors duration-200 techy-subheading">CONTACT</a>
-            <a href="#" class="text-gray-700 hover:text-[#00C4B4] font-medium transition-colors duration-200 techy-subheading">NOTIFY ME</a>
+        <nav class="flex items-center space-x-6">
+            <a href="#" class="text-[#E0E0E0] hover:text-[#00C4B4] font-medium transition-colors duration-200 techy-subheading">HOME</a>
+            <a href="#" class="text-[#E0E0E0] hover:text-[#00C4B4] font-medium transition-colors duration-200 techy-subheading">ABOUT</a>
+            <a href="#" class="text-[#E0E0E0] hover:text-[#00C4B4] font-medium transition-colors duration-200 techy-subheading">CONTACT</a>
+            <a href="#" class="text-[#E0E0E0] hover:text-[#00C4B4] font-medium transition-colors duration-200 techy-subheading">NOTIFY ME</a>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-background pt-24 pb-16"> <!-- Added padding for fixed header -->
+    <section class="hero-background pt-24 pb-16">
         <div id="particles-js"></div> <!-- Particles container -->
-        <div class="relative z-10 hero-overlay glow-effect"> <!-- Added glow-effect -->
-            <h1 class="text-4xl md:text-6xl font-extrabold text-[#1A1A1A] mb-4 leading-tight techy-heading">
+        <div class="relative z-10 hero-overlay glow-effect">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-[#F5F5F5] mb-4 leading-tight techy-heading">
                 HIGH-PROTEIN. BOLD FLAVOR. GUILT-FREE CRUNCH.
             </h1>
-            <p class="text-lg md:text-xl text-gray-700 mb-8 leading-relaxed techy-subheading">
+            <p class="text-lg md:text-xl text-[#C0C0C0] mb-8 leading-relaxed techy-subheading">
                 YOUR NEW FAVORITE SNACK IS ALMOST HERE. CRAFTED WITH CLEAN INGREDIENTS AND PACKED WITH PROTEIN, OUR CHIPS FUEL YOUR DAY—WITHOUT COMPROMISING ON TASTE.
             </p>
-            <p id="launchingSoonText" class="relative text-2xl md:text-3xl font-bold text-[#000000] mb-10 animate-bounce-subtle techy-text-glow techy-heading cursor-pointer">
+            <p id="launchingSoonText" class="relative text-2xl md:text-3xl font-bold text-[#FFFFFF] mb-10 animate-bounce-subtle techy-heading cursor-pointer">
                 🚀 LAUNCHING SOON IN 2025! 🚀
             </p>
             
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-                <input type="email" placeholder="ENTER YOUR EMAIL FOR EARLY ACCESS" class="p-3 border-2 border-[#00C4B4] rounded-full focus:outline-none focus:ring-2 focus:ring-[#000000] w-full sm:w-80 text-gray-800 bg-white shadow-inner techy-subheading">
-                <button class="btn-primary flex items-center justify-center w-full sm:w-auto techy-subheading">
+                <input type="email" placeholder="ENTER YOUR EMAIL FOR EARLY ACCESS" class="p-3 border-2 border-[#00C4B4] rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFFFFF] w-full sm:w-80 text-[#F5F5F5] bg-[#1A1A1A] shadow-inner techy-subheading">
+                <button id="notifyMeButton" class="btn-primary flex items-center justify-center w-full sm:w-auto techy-subheading">
                     <i class="fas fa-bell mr-2"></i> NOTIFY ME WHEN WE LAUNCH
                 </button>
             </div>
@@ -300,17 +212,17 @@
     </section>
 
     <!-- About the Brand Section -->
-    <section class="py-16 px-6 md:px-12 bg-white text-center section-to-observe">
+    <section class="py-16 px-6 md:px-12 bg-[#1A1A1A] text-center section-to-observe">
         <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mb-10 techy-heading">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-[#F5F5F5] mb-10 techy-heading">
                 SNACKING, REINVENTED.
             </h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-12 techy-subheading">
+            <p class="text-lg text-[#C0C0C0] leading-relaxed mb-12 techy-subheading">
                 WE’RE NOT JUST MAKING CHIPS—WE'RE MAKING A STATEMENT. OUR MISSION IS TO BRING HIGH-PROTEIN, LOW-GUILT SNACKING TO THE FOREFRONT WITH A CRUNCH YOU’LL CRAVE. WHETHER YOU'RE AN ATHLETE, A STUDENT, OR JUST SNACK-SAVVY, OUR PROTEIN CHIPS ARE DESIGNED TO KEEP YOU ENERGIZED, SATISFIED, AND READY FOR ANYTHING.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
                 <!-- Key Features - Updated with Animated SVGs -->
-                <div class="card-light glow-effect section-to-observe">
+                <div class="card-light glow-effect section-to-observe bg-[#2A2A2A]">
                     <h3 class="text-xl font-bold text-[#00C4B4] mb-3 flex items-center techy-subheading">
                         <!-- SVG for Plant-Based / Whey-Based Options (Leaf) -->
                         <svg class="feature-icon" style="--icon-delay: 0s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -319,20 +231,21 @@
                         </svg>
                         PLANT-BASED / WHEY-BASED OPTIONS
                     </h3>
-                    <p class="text-gray-600 techy-subheading">DIVERSE CHOICES TO FIT YOUR DIETARY PREFERENCES.</p>
+                    <p class="text-[#B0B0B0] techy-subheading">DIVERSE CHOICES TO FIT YOUR DIETARY PREFERENCES.</p>
                 </div>
-                <div class="card-light glow-effect section-to-observe">
+                <div class="card-light glow-effect section-to-observe bg-[#2A2A2A]">
                     <h3 class="text-xl font-bold text-[#00C4B4] mb-3 flex items-center techy-subheading">
-                        <!-- SVG for 15+g Protein per Serving (Dumbbell) -->
+                        <!-- Corrected SVG for 15+g Protein per Serving (Dumbbell) -->
                         <svg class="feature-icon" style="--icon-delay: 0.1s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path class="animated-path" d="M17 18L22 13L17 8" />
-                            <path class="animated-path" d="M2 12H22" />
+                            <path class="animated-path" d="M4 14L4 10C4 8.89543 4.89543 8 6 8H18C19.1046 8 20 8.89543 20 10V14C20 15.1046 19.1046 16 18 16H6C4.89543 16 4 15.1046 4 14Z" />
+                            <circle class="animated-path" cx="2" cy="12" r="1.5" />
+                            <circle class="animated-path" cx="22" cy="12" r="1.5" />
                         </svg>
                         15+G PROTEIN PER SERVING
                     </h3>
-                    <p class="text-gray-600 techy-subheading">FUEL YOUR BODY WITH A POWERFUL PROTEIN PUNCH.</p>
+                    <p class="text-[#B0B0B0] techy-subheading">FUEL YOUR BODY WITH A POWERFUL PROTEIN PUNCH.</p>
                 </div>
-                <div class="card-light glow-effect section-to-observe">
+                <div class="card-light glow-effect section-to-observe bg-[#2A2A2A]">
                     <h3 class="text-xl font-bold text-[#00C4B4] mb-3 flex items-center techy-subheading">
                         <!-- SVG for No Artificial Flavors or Preservatives (Ban/No Sign) -->
                         <svg class="feature-icon" style="--icon-delay: 0.2s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -342,9 +255,9 @@
                         </svg>
                         NO ARTIFICIAL FLAVORS OR PRESERVATIVES
                     </h3>
-                    <p class="text-gray-600 techy-subheading">CLEAN INGREDIENTS FOR A SNACK YOU CAN TRUST.</p>
+                    <p class="text-[#B0B0B0] techy-subheading">CLEAN INGREDIENTS FOR A SNACK YOU CAN TRUST.</p>
                 </div>
-                <div class="card-light glow-effect section-to-observe">
+                <div class="card-light glow-effect section-to-observe bg-[#2A2A2A]">
                     <h3 class="text-xl font-bold text-[#00C4B4] mb-3 flex items-center techy-subheading">
                         <!-- SVG for Bold, Irresistible Flavors (Fire/Flame) -->
                         <svg class="feature-icon" style="--icon-delay: 0.3s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -354,9 +267,9 @@
                         </svg>
                         BOLD, IRRESISTIBLE FLAVORS
                     </h3>
-                    <p class="text-gray-600 techy-subheading">TASTE SENSATIONS THAT WILL KEEP YOU COMING BACK.</p>
+                    <p class="text-[#B0B0B0] techy-subheading">TASTE SENSATIONS THAT WILL WILL KEEP YOU COMING BACK.</p>
                 </div>
-                <div class="card-light glow-effect section-to-observe">
+                <div class="card-light glow-effect section-to-observe bg-[#2A2A2A]">
                     <h3 class="text-xl font-bold text-[#00C4B4] mb-3 flex items-center techy-subheading">
                         <!-- SVG for Gluten-Free & Keto-Friendly Options (Checkmark in Circle) -->
                         <svg class="feature-icon" style="--icon-delay: 0.4s;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -365,76 +278,76 @@
                         </svg>
                         GLUTEN-FREE & KETO-FRIENDLY OPTIONS
                     </h3>
-                    <p class="text-gray-600 techy-subheading">SNACK SMART, NO MATTER YOUR DIETARY NEEDS.</p>
+                    <p class="text-[#B0B0B0] techy-subheading">SNACK SMART, NO MATTER YOUR DIETARY NEEDS.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Coming Soon Countdown -->
-    <section class="py-16 px-6 md:px-12 bg-[#E0F7FA] text-center rounded-xl mx-4 md:mx-12 shadow-inner glow-effect section-to-observe">
+    <section class="py-16 px-6 md:px-12 bg-[#333333] text-center rounded-xl mx-4 md:mx-12 shadow-inner glow-effect section-to-observe">
         <div class="max-w-3xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-extrabold text-[#00C4B4] mb-6 flex items-center justify-center techy-heading">
                 <i class="fas fa-rocket text-4xl mr-4"></i> GET READY FOR THE CRUNCH!
             </h2>
-            <p class="text-xl md:text-2xl text-gray-700 leading-relaxed font-semibold techy-subheading">
-                OUR FLAVOR ENGINEERS ARE PERFECTING EVERY BITE. STAY TUNED FOR OUR GRAND LAUNCH IN <span class="font-bold text-[#000000] text-2xl md:text-3xl">SEPTEMBER 2025</span>!
+            <p class="text-xl md:text-2xl text-[#C0C0C0] leading-relaxed font-semibold techy-subheading">
+                OUR FLAVOR ENGINEERS ARE PERFECTING EVERY BITE. STAY TUNED FOR OUR GRAND LAUNCH IN <span class="font-bold text-[#FFFFFF] text-2xl md:text-3xl">SEPTEMBER 2025</span>!
             </p>
             <!-- A real countdown timer would require JavaScript -->
         </div>
     </section>
 
     <!-- Flavor Teasers -->
-    <section class="py-16 px-6 md:px-12 bg-[#F8F8F8] text-center section-to-observe">
+    <section class="py-16 px-6 md:px-12 bg-[#1A1A1A] text-center section-to-observe">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mb-10 techy-heading">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-[#F5F5F5] mb-10 techy-heading">
                 SNEAK A PEEK AT OUR DEBUT FLAVORS
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Flavor 1 -->
-                <div class="card-light glow-effect flavor-teaser-card cursor-pointer section-to-observe">
-                    <img src="https://placehold.co/400x300/F0F0F0/333333?text=Spicy+Sriracha" alt="Spicy Sriracha Crunch" class="w-full h-48 object-cover rounded-xl mb-4 flavor-teaser-image">
-                    <h3 class="text-xl font-bold text-[#000000] techy-subheading">SPICY SRIRACHA CRUNCH</h3>
+                <div class="card-light glow-effect flavor-teaser-card cursor-pointer section-to-observe bg-[#2A2A2A]">
+                    <img src="https://placehold.co/400x300/333333/E0E0E0?text=Spicy+Sriracha" alt="Spicy Sriracha Crunch" class="w-full h-48 object-cover rounded-xl mb-4 flavor-teaser-image">
+                    <h3 class="text-xl font-bold text-gray-400 techy-subheading">SPICY SRIRACHA CRUNCH</h3>
                 </div>
                 <!-- Flavor 2 -->
-                <div class="card-light glow-effect flavor-teaser-card cursor-pointer section-to-observe">
-                    <img src="https://placehold.co/400x300/F0F0F0/333333?text=Sour+Cream+Onion" alt="Sour Cream & Onion Power" class="w-full h-48 object-cover rounded-xl mb-4 flavor-teaser-image">
-                    <h3 class="text-xl font-bold text-[#000000] techy-subheading">SOUR CREAM & ONION POWER</h3>
+                <div class="card-light glow-effect flavor-teaser-card cursor-pointer section-to-observe bg-[#2A2A2A]">
+                    <img src="https://placehold.co/400x300/333333/E0E0E0?text=Sour+Cream+Onion" alt="Sour Cream & Onion Power" class="w-full h-48 object-cover rounded-xl mb-4 flavor-teaser-image">
+                    <h3 class="text-xl font-bold text-gray-400 techy-subheading">SOUR CREAM & ONION POWER</h3>
                 </div>
                 <!-- Flavor 3 -->
-                <div class="card-light glow-effect flavor-teaser-card cursor-pointer section-to-observe">
-                    <img src="https://placehold.co/400x300/F0F0F0/333333?text=BBQ+Blaze" alt="BBQ Blaze" class="w-full h-48 object-cover rounded-xl mb-4 flavor-teaser-image">
-                    <h3 class="text-xl font-bold text-[#000000] techy-subheading">BBQ BLAZE</h3>
+                <div class="card-light glow-effect flavor-teaser-card cursor-pointer section-to-observe bg-[#2A2A2A]">
+                    <img src="https://placehold.co/400x300/333333/E0E0E0?text=BBQ+Blaze" alt="BBQ Blaze" class="w-full h-48 object-cover rounded-xl mb-4 flavor-teaser-image">
+                    <h3 class="text-xl font-bold text-gray-400 techy-subheading">BBQ BLAZE</h3>
                 </div>
                 <!-- Flavor 4 -->
-                <div class="card-light glow-effect flavor-teaser-card cursor-pointer section-to-observe">
-                    <img src="https://placehold.co/400x300/F0F0F0/333333?text=Sea+Salt+Vinegar" alt="Sea Salt & Vinegar Lift" class="w-full h-48 object-cover rounded-xl mb-4 flavor-teaser-image">
-                    <h3 class="text-xl font-bold text-[#000000] techy-subheading">SEA SALT & VINEGAR LIFT</h3>
+                <div class="card-light glow-effect flavor-teaser-card cursor-pointer section-to-observe bg-[#2A2A2A]">
+                    <img src="https://placehold.co/400x300/333333/E0E0E0?text=Sea+Salt+Vinegar" alt="Sea Salt & Vinegar Lift" class="w-full h-48 object-cover rounded-xl mb-4 flavor-teaser-image">
+                    <h3 class="text-xl font-bold text-gray-400 techy-subheading">SEA SALT & VINEGAR LIFT</h3>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Community & Mission (Optional) -->
-    <section class="py-16 px-6 md:px-12 bg-white text-center section-to-observe">
+    <section class="py-16 px-6 md:px-12 bg-[#1A1A1A] text-center section-to-observe">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mb-6 techy-heading">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-[#F5F5F5] mb-6 techy-heading">
                 SNACK STRONG. LIVE BOLD.
             </h2>
-            <p class="text-lg text-gray-700 leading-relaxed mb-12 techy-subheading">
+            <p class="text-lg text-[#C0C0C0] leading-relaxed mb-12 techy-subheading">
                 OUR MISSION GOES BEYOND CHIPS. WE’RE BUILDING A COMMUNITY OF SNACKERS WHO BELIEVE THAT HEALTHY CAN BE DELICIOUS, AND PERFORMANCE STARTS WITH WHAT YOU EAT. JOIN US ON THIS JOURNEY!
             </p>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#1A1A1A] py-12 px-6 md:px-12 text-white text-center">
+    <footer class="bg-[#0A0A0A] py-12 px-6 md:px-12 text-white text-center">
         <div class="max-w-6xl mx-auto">
             <!-- Email Sign-up in Footer -->
             <h3 class="text-2xl font-bold mb-6 techy-subheading">STAY CONNECTED!</h3>
             <p class="mb-4 techy-subheading">SIGN UP FOR OUR NEWSLETTER TO GET THE LATEST UPDATES AND EXCLUSIVE OFFERS.</p>
             <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-10">
-                <input type="email" placeholder="YOUR EMAIL ADDRESS" class="p-3 border-2 border-[#00C4B4] rounded-full focus:outline-none focus:ring-2 focus:ring-[#000000] w-full sm:w-96 text-gray-800 bg-white shadow-inner techy-subheading">
+                <input type="email" placeholder="YOUR EMAIL ADDRESS" class="p-3 border-2 border-[#00C4B4] rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFFFFF] w-full sm:w-96 text-[#F5F5F5] bg-[#1A1A1A] shadow-inner techy-subheading">
                 <button class="btn-primary flex items-center justify-center w-full sm:w-auto techy-subheading">
                     SUBSCRIBE
                 </button>
@@ -442,10 +355,10 @@
 
             <!-- Social Media Icons -->
             <div class="flex justify-center space-x-6 mb-8">
-                <a href="#" class="text-white hover:text-[#000000] text-3xl transition-colors duration-200"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-white hover:text-[#000000] text-3xl transition-colors duration-200"><i class="fab fa-tiktok"></i></a>
-                <a href="#" class="text-white hover:text-[#000000] text-3xl transition-colors duration-200"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="text-white hover:text-[#000000] text-3xl transition-colors duration-200"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white hover:text-[#FFFFFF] text-3xl transition-colors duration-200"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-white hover:text-[#FFFFFF] text-3xl transition-colors duration-200"><i class="fab fa-tiktok"></i></a>
+                <a href="#" class="text-white hover:text-[#FFFFFF] text-3xl transition-colors duration-200"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white hover:text-[#FFFFFF] text-3xl transition-colors duration-200"><i class="fab fa-facebook-f"></i></a>
             </div>
 
             <!-- Contact Us & Policy Links -->
@@ -529,8 +442,8 @@
                 emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)]; // Random emoji
                 
                 // Set initial position near the clicked text
-                emoji.style.left = startX + 'px';
-                emoji.style.top = startY + 'px';
+                emoji.style.left = `${startX}px`;
+                emoji.style.top = `${startY}px`;
 
                 // Randomize animation properties
                 const offsetX = (Math.random() - 0.5) * 400; // Wider horizontal spread
@@ -539,14 +452,14 @@
                 const duration = 1.5 + Math.random() * 1.5; // Random duration between 1s and 3s
                 const delay = Math.random() * 0.5; // Staggered start
 
-                emoji.style.animationDuration = duration + 's';
-                emoji.style.animationDelay = delay + 's';
-                emoji.style.setProperty('--emoji-offset-x', offsetX + 'px');
-                emoji.style.setProperty('--emoji-offset-y', offsetY + 'px');
-                emoji.style.setProperty('--emoji-rotate-deg', rotateDeg + 'deg');
+                emoji.style.animationDuration = `${duration}s`;
+                emoji.style.animationDelay = `${delay}s`;
+                emoji.style.setProperty('--emoji-offset-x', `${offsetX}px`);
+                emoji.style.setProperty('--emoji-offset-y', `${offsetY}px`);
+                emoji.style.setProperty('--emoji-rotate-deg', `${rotateDeg}deg`);
                 // Define end points for the animation to ensure they move outwards
-                emoji.style.setProperty('--emoji-offset-x-end', (offsetX * 2) + 'px');
-                emoji.style.setProperty('--emoji-offset-y-end', (offsetY * 2) + 'px');
+                emoji.style.setProperty('--emoji-offset-x-end', `${offsetX * 2}px`);
+                emoji.style.setProperty('--emoji-offset-y-end', `${offsetY * 2}px`);
 
 
                 document.body.appendChild(emoji);
@@ -578,8 +491,8 @@
                 emojiSpan.textContent = emoji;
                 
                 // Set initial position at the click point
-                emojiSpan.style.left = clickX + 'px';
-                emojiSpan.style.top = clickY + 'px';
+                emojiSpan.style.left = `${clickX}px`;
+                emojiSpan.style.top = `${clickY}px`;
                 
                 // Randomize animation properties for a scattered burst
                 const angle = Math.random() * Math.PI * 2; // Full circle
@@ -591,14 +504,14 @@
                 const duration = 1 + Math.random() * 1; // Duration between 1s and 2s
                 const delay = Math.random() * 0.2; // Staggered start
 
-                emojiSpan.style.animationDuration = duration + 's';
-                emojiSpan.style.animationDelay = delay + 's';
-                emojiSpan.style.setProperty('--lock-offset-x', offsetX + 'px');
-                emojiSpan.style.setProperty('--lock-offset-y', offsetY + 'px');
-                emojiSpan.style.setProperty('--lock-rotate-deg', rotateDeg + 'deg');
+                emojiSpan.style.animationDuration = `${duration}s`;
+                emojiSpan.style.animationDelay = `${delay}s`;
+                emojiSpan.style.setProperty('--lock-offset-x', `${offsetX}px`);
+                emojiSpan.style.setProperty('--lock-offset-y', `${offsetY}px`);
+                emojiSpan.style.setProperty('--lock-rotate-deg', `${rotateDeg}deg`);
                 // Define end points for the animation to ensure they move outwards
-                emojiSpan.style.setProperty('--lock-offset-x-end', (offsetX * 2) + 'px');
-                emojiSpan.style.setProperty('--lock-offset-y-end', (offsetY * 2) + 'px');
+                emojiSpan.style.setProperty('--lock-offset-x-end', `${offsetX * 2}px`);
+                emojiSpan.style.setProperty('--lock-offset-y-end', `${offsetY * 2}px`);
 
                 document.body.appendChild(emojiSpan); // Append to body, as click is document-relative
 
@@ -657,7 +570,7 @@
                         // Trigger icon animation specifically for cards within the observed section
                         const icons = entry.target.querySelectorAll('.feature-icon path, .feature-icon circle, .feature-icon rect');
                         icons.forEach(icon => {
-                            icon.style.animation = "icon-draw 0.8s ease-out forwards";
+                            icon.style.animation = `icon-draw 0.8s ease-out forwards`;
                             icon.style.animationDelay = icon.style.getPropertyValue('--icon-delay');
                         });
 
@@ -705,7 +618,7 @@
                         }
                     },
                     "color": {
-                        "value": "#cccccc" /* Light gray particles */
+                        "value": "#444444" /* Dark gray particles for dark theme */
                     },
                     "shape": {
                         "type": "circle",
@@ -740,7 +653,7 @@
                     "line_linked": {
                         "enable": true,
                         "distance": 150,
-                        "color": "#cccccc", /* Light gray lines */
+                        "color": "#444444", /* Dark gray lines for dark theme */
                         "opacity": 0.4,
                         "width": 1
                     },
